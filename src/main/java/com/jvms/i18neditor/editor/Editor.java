@@ -99,10 +99,13 @@ public class Editor extends JFrame {
 	public final static Locale DEFAULT_LANGUAGE = Locale.ENGLISH;
 	public final static List<Locale> SUPPORTED_LANGUAGES = Lists.newArrayList(
 			new Locale("en"),
-			new Locale("nl"),
-			new Locale("pt", "BR"),
+			new Locale("el", "GR"),
+			new Locale("es", "AR"),
 			new Locale("es", "ES"),
 			new Locale("fr"),
+			new Locale("nl"),
+			new Locale("pl"),
+			new Locale("pt", "BR"),
 			new Locale("ru"));
 	
 	private EditorProject project;

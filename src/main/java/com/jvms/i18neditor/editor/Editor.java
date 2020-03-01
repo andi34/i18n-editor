@@ -89,7 +89,7 @@ public class Editor extends JFrame {
 	private final static Logger log = LoggerFactory.getLogger(Editor.class);
 	
 	public final static String TITLE = "i18n-editor";
-	public final static String VERSION = "2.0.0-beta.1";
+	public final static String VERSION = "2.0.0-beta.2";
 	public final static String GITHUB_USER = "jcbvm";
 	public final static String GITHUB_PROJECT = "i18n-editor";
 	public final static String PROJECT_FILE = ".i18n-editor-metadata";

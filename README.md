@@ -35,7 +35,7 @@ You can download the latest release by going to [this page](https://github.com/a
 ```
 git clone https://github.com/andi34/i18n-editor
 cd i18n-editor
-mvn install
+mvn compile
 ```
 You'll find the i18n-editor inside the created `target` folder.
 

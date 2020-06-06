@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -138,7 +137,7 @@ public final class Resources {
 	public static void load(Resource resource, boolean preserveComments, boolean useSingleQuotes) throws IOException {
 		ResourceType type = resource.getType();
 		Path path = resource.getPath();
-		LinkedHashMap<String,String> translations;
+		SortedMap<String,String> translations;
 		if (type == ResourceType.Properties) {
 			ExtendedProperties content = new ExtendedProperties();
 			content.load(path);
@@ -240,8 +239,8 @@ public final class Resources {
 		return fileDefinition.replaceAll(FILENAME_LOCALE_REGEX, locale.isPresent() ? ("$1" + locale.get().toString() + "$2") : "");
 	}
 	
-	private static LinkedHashMap<String,String> fromProperties(Properties properties) {
-		LinkedHashMap<String,String> result = Maps.newLinkedHashMap();
+	private static SortedMap<String,String> fromProperties(Properties properties) {
+		SortedMap<String,String> result = Maps.newTreeMap();
 		properties.forEach((key, value) -> {
 			result.put((String)key, StringEscapeUtils.unescapeJava((String)value));
 		});
@@ -258,14 +257,14 @@ public final class Resources {
 		return result;
 	}
 	
-	private static LinkedHashMap<String,String> fromJson(String json) {
-		LinkedHashMap<String,String> result = Maps.newLinkedHashMap();
+	private static SortedMap<String,String> fromJson(String json) {
+		SortedMap<String,String> result = Maps.newTreeMap();
 		JsonElement elem = new JsonParser().parse(json);
 		fromJson(null, elem, result);
 		return result;
 	}
 	
-	private static void fromJson(String key, JsonElement elem, LinkedHashMap<String,String> content) {
+	private static void fromJson(String key, JsonElement elem, Map<String,String> content) {
 		if (elem.isJsonObject()) {
 			elem.getAsJsonObject().entrySet().forEach(entry -> {
 				String newKey = key == null ? entry.getKey() : ResourceKeys.create(key, entry.getKey());
@@ -286,7 +285,7 @@ public final class Resources {
 		}
 	}
 	
-	private static String toJson(LinkedHashMap<String,String> translations, boolean prettify, boolean flattenKeys) {
+	private static String toJson(Map<String,String> translations, boolean prettify, boolean flattenKeys) {
 		List<String> keys = Lists.newArrayList(translations.keySet());
 		JsonElement elem = !flattenKeys ? toJson(translations, null, keys) : toFlatJson(translations, keys);
 		GsonBuilder builder = new GsonBuilder().disableHtmlEscaping();
@@ -356,7 +355,7 @@ public final class Resources {
 	};
 
 	public static String applyComments(String code, boolean preserveComments, boolean useSingleQuotes) {
-      CommentState state = CommentState.outsideComment;
+	  CommentState state = CommentState.outsideComment;
 	  StringBuilder result = new StringBuilder();
 	  Scanner scanner = new Scanner(code);
 	  scanner.useDelimiter("\\n");

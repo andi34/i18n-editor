@@ -1,6 +1,5 @@
 package com.jvms.i18neditor;
 
-import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.SortedMap;
 
@@ -21,7 +20,7 @@ public class ResourceTest {
 	
 	@Before
 	public void setup() throws Exception {
-		LinkedHashMap<String,String>  translations = Maps.newLinkedHashMap();
+		SortedMap<String,String>  translations = Maps.newTreeMap();
 		translations.put("a.a", "aa");
 		translations.put("a.b", "ab");
 		resource = new Resource(ResourceType.JSON, null, new Locale("en"));
@@ -30,7 +29,7 @@ public class ResourceTest {
 	
 	@Test
 	public void addTranslationTest() {
-		LinkedHashMap<String,String> translations;
+		SortedMap<String,String> translations;
 		
 		resource.storeTranslation("a.a", "b");
 		
@@ -64,7 +63,7 @@ public class ResourceTest {
 	
 	@Test
 	public void removeTranslationTest() {
-		LinkedHashMap<String,String> translations;
+		SortedMap<String,String> translations;
 		
 		resource.storeTranslation("b", "b");
 		resource.removeTranslation("a");
@@ -78,7 +77,7 @@ public class ResourceTest {
 	
 	@Test
 	public void renameTranslationToUniqueKeyTest() {
-		LinkedHashMap<String,String> translations;
+		SortedMap<String,String> translations;
 		
 		resource.storeTranslation("b.a", "ba");
 		resource.storeTranslation("b.b", "bb");
@@ -108,7 +107,7 @@ public class ResourceTest {
 	
 	@Test
 	public void renameTranslationToExistingKeyTest() {
-		LinkedHashMap<String,String> translations;
+		SortedMap<String,String> translations;
 		
 		resource.storeTranslation("a.c", "ac");
 		resource.storeTranslation("b.a", "ba");
@@ -146,7 +145,7 @@ public class ResourceTest {
 	
 	@Test
 	public void duplicateTranslationToUniqueKeyTest() {
-		LinkedHashMap<String,String> translations;
+		SortedMap<String,String> translations;
 		
 		resource.storeTranslation("b.a", "ba");
 		resource.storeTranslation("b.b", "bb");
@@ -176,7 +175,7 @@ public class ResourceTest {
 	
 	@Test
 	public void duplicateTranslationToExistingKeyTest() {
-		LinkedHashMap<String,String> translations;
+		SortedMap<String,String> translations;
 		
 		resource.storeTranslation("a.c", "ac");
 		resource.storeTranslation("b.a", "ba");

@@ -338,7 +338,7 @@ public final class Resources {
 	
 	private static String es6ToJson(String content, boolean preserveComments, boolean useSingleQuotes) {			
 		content = applyComments(content, preserveComments, useSingleQuotes)
-				.replaceAll("export +default", "")
+				.replaceAll("const +L10N += ", "")
 				.replaceAll("} *;", "}")
 				.replaceAll("\n", "")
 				.replaceAll(", *}", " }");
@@ -347,7 +347,7 @@ public final class Resources {
 	}
 	
 	private static String jsonToEs6(String content) {
-		return "export default " + content + ";";
+		return "const L10N = " + content + ";";
 	}
 	
 	private enum CommentState { 
@@ -370,7 +370,7 @@ public final class Resources {
 	    	case outsideComment:
 	    		if (current.startsWith("//") || current.startsWith("/*")) {
 	    			if (preserveComments) {
-	    				result.append(buidlJSONComment("comment",count, current, quote));
+					result.append(buidlJSONComment("comment", count, current, quote));
 	    				count++;
 	    			}
 	    			
